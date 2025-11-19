@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  commander_service:
+    build: ./commander_service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - rabbitmq
+
+  soldier_worker:
+    build: ./soldier_worker
+    depends_on:
+      - rabbitmq
