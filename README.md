@@ -28,3 +28,6 @@ Execute `./test_missions.sh` to submit and track missions.
 
 ## Architecture diagram
 ![alt text](image.png)
+
+## Flowchart - Mission Control
+![alt text](image-1.png)
