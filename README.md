@@ -29,6 +29,41 @@ Execute `./test_missions.sh` to submit and track missions.
 ## Architecture diagram
 ![alt text](image-3.png)
 
+The diagram above illustrates the key components and data flow of the Mission Control system:
+
+**Mission Control Dashboard (React, HTTP):**
+This is the web frontend through which users (commanders) submit new missions and view mission status. All interactions with the backend occur over HTTP.
+
+**Commander Service (Go/Gin, In-Memory):**
+The central API backend, written in Go using the Gin framework. It receives mission requests from the Dashboard, emits mission commands to RabbitMQ for execution, and stores mission status in memory for fast retrieval.
+
+**RabbitMQ (orders_queue, status_queue):**
+RabbitMQ serves as the central message broker.
+
+orders_queue is where new missions are published by the Commander Service for execution.
+
+status_queue is where mission status updates from workers are received.
+
+**Soldier Worker Cluster (N Workers):**
+Represents a scalable group of worker containers ("Soldiers").
+
+Any number of worker containers can be run simultaneously to process missions in parallel.
+
+Workers subscribe to orders_queue to receive missions and publish status updates to status_queue after task completion.
+
+**Data Flow:**
+
+The user dashboard sends mission requests (HTTP) to the Commander Service.
+
+Missions are queued in RabbitMQ by the Commander Service (orders_queue).
+
+One of the available Soldier Workers picks up each mission from the queue, performs its assigned task, then reports back status to RabbitMQ (status_queue).
+
+The Commander Service consumes these status updates and updates the mission status for the Dashboard.
+
+**Scalability:**
+The number of Soldier Workers (N) is not fixed—they can be scaled up or down at runtime using Docker Compose, allowing the system to handle any workload from a single mission to thousands in parallel.
+
 ## Flowchart - Mission Control
 ![alt text](image-1.png)
 
