@@ -2,6 +2,8 @@
 
 ## Scope and Objectives
 This project implements a secure, asynchronous command and control system for military operations using Go, RabbitMQ, and Docker. The Commander's Camp issues orders, and Soldier Workers execute them, reporting status back through a central hub.
+![alt text](image.png)
+frontend
 
 ## Design Rationale
 - **GoLang:** Chosen for its concurrency, simplicity, and containerization support.
@@ -25,6 +27,7 @@ AI tools were used to generate code templates, Dockerfiles, and orchestration sc
 
 ## How to Run Tests
 Execute `./test_missions.sh` to submit and track missions.
+![alt text](image-2.png)
 
 ## Architecture diagram
 ![alt text](image-3.png)
