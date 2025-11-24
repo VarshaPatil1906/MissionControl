@@ -28,7 +28,7 @@ AI tools were used to generate code templates, Dockerfiles, and orchestration sc
 ## How to Run Tests
 Execute `./test_missions.sh` to submit and track missions.
 
-![alt text](image-4.png)
+![alt text](image-5.png)
 Fig:  Example Mission Submission and Status Check Output
 
 ## Architecture diagram
