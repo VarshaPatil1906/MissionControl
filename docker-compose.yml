@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   rabbitmq:
     image: rabbitmq:3-management
@@ -9,14 +10,107 @@ services:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
 
-  commander_service:
+  # Commander 1
+  commander1:
     build: ./commander_service
+    environment:
+      - COMMANDER_NAME=commander1
     ports:
-      - "8080:8080"
+      - "8081:8080"
     depends_on:
       - rabbitmq
 
-  soldier_worker:
+  # Commander 2
+  commander2:
+    build: ./commander_service
+    environment:
+      - COMMANDER_NAME=commander2
+    ports:
+      - "8082:8080"
+    depends_on:
+      - rabbitmq
+
+  # Commander 3
+  commander3:
+    build: ./commander_service
+    environment:
+      - COMMANDER_NAME=commander3
+    ports:
+      - "8083:8080"
+    depends_on:
+      - rabbitmq
+
+  # Soldiers for commander1
+  soldier1_c1:
     build: ./soldier_worker
+    environment:
+      - SOLDIER_NAME=soldier1
+      - COMMANDER_NAME=commander1
+    depends_on:
+      - rabbitmq
+
+  soldier2_c1:
+    build: ./soldier_worker
+    environment:
+      - SOLDIER_NAME=soldier2
+      - COMMANDER_NAME=commander1
+    depends_on:
+      - rabbitmq
+
+  soldier3_c1:
+    build: ./soldier_worker
+    environment:
+      - SOLDIER_NAME=soldier3
+      - COMMANDER_NAME=commander1
+    depends_on:
+      - rabbitmq
+
+  # Soldiers for commander2
+  soldier1_c2:
+    build: ./soldier_worker
+    environment:
+      - SOLDIER_NAME=soldier1
+      - COMMANDER_NAME=commander2
+    depends_on:
+      - rabbitmq
+
+  soldier2_c2:
+    build: ./soldier_worker
+    environment:
+      - SOLDIER_NAME=soldier2
+      - COMMANDER_NAME=commander2
+    depends_on:
+      - rabbitmq
+
+  soldier3_c2:
+    build: ./soldier_worker
+    environment:
+      - SOLDIER_NAME=soldier3
+      - COMMANDER_NAME=commander2
+    depends_on:
+      - rabbitmq
+
+  # Soldiers for commander3
+  soldier1_c3:
+    build: ./soldier_worker
+    environment:
+      - SOLDIER_NAME=soldier1
+      - COMMANDER_NAME=commander3
+    depends_on:
+      - rabbitmq
+
+  soldier2_c3:
+    build: ./soldier_worker
+    environment:
+      - SOLDIER_NAME=soldier2
+      - COMMANDER_NAME=commander3
+    depends_on:
+      - rabbitmq
+
+  soldier3_c3:
+    build: ./soldier_worker
+    environment:
+      - SOLDIER_NAME=soldier3
+      - COMMANDER_NAME=commander3
     depends_on:
       - rabbitmq

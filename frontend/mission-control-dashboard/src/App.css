@@ -144,3 +144,79 @@ header h1 {
   color: #222;
   font-weight: 500;
 }
+
+/* Mission history + token panels */
+
+.history-panel {
+  padding: 18px 22px 22px 22px;
+  background: #f4f5fa;
+  border-radius: 13px;
+  box-shadow: 0 1px 12px #e0e3f050;
+}
+
+/* bottom row layout: token viewer + history side by side */
+.bottom-grid {
+  display: flex;
+  gap: 24px;
+  padding: 0 26px 24px 26px;
+  box-sizing: border-box;
+}
+
+.half-panel {
+  flex: 1;
+}
+
+/* shared row for inputs + buttons */
+.history-input-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.history-input {
+  flex: 1;
+  max-width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: 7px;
+  border: 1px solid #d6dae3;
+  box-sizing: border-box;
+}
+
+/* widen soldier select and mission ID input */
+.wide-input {
+  flex: 1;
+  min-width: 180px;
+}
+
+.history-list {
+  list-style: disc;
+  padding-left: 22px;
+  margin: 8px 0 0 0;
+}
+
+.history-item {
+  margin-bottom: 4px;
+  font-size: 0.95rem;
+}
+
+/* dropdowns */
+
+.soldier-select {
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  border-radius: 7px;
+  border: 1px solid #d6dae3;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.commander-select {
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  border-radius: 7px;
+  border: 1px solid #d6dae3;
+  background: #fff;
+  box-sizing: border-box;
+}
