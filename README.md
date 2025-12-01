@@ -17,24 +17,24 @@ Fig: frontend
 
 ## Core Components
 - **Mission Control Dashboard (React):**
-- Sends HTTP requests to a specific Commander Service.
-- Endpoints used: /missions, /missions/:id, /missions/:id/history.
+    - Sends HTTP requests to a specific Commander Service.
+    - Endpoints used: /missions, /missions/:id, /missions/:id/history.
 
 - **Commander Services (Go/Gin):**
-- Expose HTTP API for missions and token rotation.
-- Publish missions to per‑soldier RabbitMQ queues.
-- Consume status updates from RabbitMQ and keep in‑memory  mission state and history.
-- Store for each mission: mission_id, payload, status, target_soldier, assigned_soldier, and commander_name.
+    - Expose HTTP API for missions and token rotation.
+    - Publish missions to per‑soldier RabbitMQ queues.
+    - Consume status updates from RabbitMQ and keep in‑memory  mission state and history.
+    - Store for each mission: mission_id, payload, status, target_soldier, assigned_soldier, and commander_name.
 
 - **RabbitMQ:**
-- orders_<commander>_<soldier>: missions from a specific commander to a specific soldier.
-- status_<commander>: status updates (with token) from all soldiers of that commander.
+    - orders_<commander>_<soldier>: missions from a specific commander to a specific soldier.
+    - status_<commander>: status updates (with token) from all soldiers of that commander.
 
 - **Soldier Workers (Go):**
-- Each worker is configured with COMMANDER_NAME and SOLDIER_NAME.
-- Consumes missions from orders_<commander>_<soldier>.
-- Executes work, then publishes status (including its token) to status_<commander>.
-- Calls /auth/refresh_token on its commander every 30 seconds to rotate its token.
+    - Each worker is configured with COMMANDER_NAME and SOLDIER_NAME.
+    - Consumes missions from orders_<commander>_<soldier>.
+    - Executes work, then publishes status (including its token) to status_<commander>.
+    - Calls /auth/refresh_token on its commander every 30 seconds to rotate its token.
 
 ## Token Rotation and Authentication
 - Each soldier periodically calls POST /auth/refresh_token with headers X-SECRET and X-SOLDIER.
@@ -70,6 +70,7 @@ Fig:  Example Mission Submission and Status Check Output
 
 ## Architecture diagram
 ![alt text](image.png)
+Fig: Architecture diagram - Mission Control
 
 The diagram above illustrates the key components and data flow of the Mission Control system:
 
@@ -85,6 +86,7 @@ The diagram above illustrates the key components and data flow of the Mission Co
 
 ## Flowchart - Mission Control
 ![alt text](image-2.png)
+Fig:  Flowchart - Mission Control
 
 ## Worker Scalability and Horizontal Scaling
 This project is designed for scalable, parallel processing using as many Soldier Worker containers as needed. By default, docker-compose.yml does not specify a fixed number of workers.
