@@ -69,7 +69,7 @@ Fig:  Example Mission Submission and Status Check Output
 - Prints a final overall PASS or FAIL summary.
 
 ## Architecture diagram
-![alt text](image.png)
+![alt text](image-1.png)
 Fig: Architecture diagram - Mission Control
 
 The diagram above illustrates the key components and data flow of the Mission Control system:
